@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import ComponentsOne from "./components/ComponentsOne";
 
-function App() {
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [count2, setCount2] = useState(2);
+  const [show, setShow] = useState(true);
+
+  // mounted
+  useEffect(() => {
+    console.log("i am mounted");
+  }, []);
+
+  // update
+  useEffect(() => {
+    console.log("State was updating...");
+  });
+
+  // coundition
+  useEffect(() => {
+    console.log("i am coundition updating...");
+  }, [count]);
+
+  // clean up
+  const handleClick = () => {
+    setCount((pre) => pre + 1);
+  };
+
+  // unmounted
+  const handleClicker = () => {
+    setCount2((pre) => pre + 2);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {count}
+      <button onClick={handleClick}>Click Me</button>
+      {count2}
+      <button onClick={handleClicker}>Click Me 2</button>
+      {show && <ComponentsOne />}
+      <button
+        onClick={() => {
+          setShow((pre) => !pre);
+        }}
+      >
+        Toggle
+      </button>
     </div>
   );
-}
+};
 
 export default App;
+
+/*
+  useEffect 
+
+mounted
+updating...
+conditional Updating...
+unmounted  
+*/
